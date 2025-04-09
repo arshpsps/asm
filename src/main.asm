@@ -1,24 +1,22 @@
-bits 64
+format ELF64 executable
+entry main
 
-section .text
-    global _start
-
-_start:
+segment readable executable
+main:
     mov     rax, 0
     mov     rdi, 0
-    mov     rsi, in
+    mov     rsi, buffer
     mov     rdx, 64
     syscall
 
     mov     rdx, rax
     mov     rax, 1
     mov     rdi, 1
-    mov     rdx, 64
     syscall
 
-    mov     rax, 60 ; 60 = exit
-    mov     rdi, 0
+    mov     rax, 60
+    xor     rdi, rdi
     syscall
 
-section .bss
-in: resb 64
+segment writable
+buffer rb 64
